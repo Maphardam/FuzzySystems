@@ -114,11 +114,11 @@ def handle_requests(alpha_cuts):
         else:
             # parse input and calculate membership value
             x = read_x_value(inp)
-            mem = get_membership_value(alpha_cuts, x)
             
-            if mem is None:
+            if x is None:
                 print "You have used the wrong format! Please try again."
             else:
+                mem = get_membership_value(alpha_cuts, x)
                 print "Membership value: {}".format(mem)
                 visualize.visualize_x(alpha_cuts, x)
 
