@@ -49,6 +49,7 @@ def read_x_value(x_string):
 def get_degree_input():
     print "Please provide the list of relevant degrees of membership."
     print "You can give the values separated by ','."
+    print "The degrees need to be between 0 and 1 (inclusive)."
     
     degrees = None
     while degrees is None:
@@ -57,12 +58,17 @@ def get_degree_input():
         # read values from the given input
         degrees = read_degree_values(degree_string)
         
+        if min(degrees) < 0 or max(degrees) > 1:
+            # invalid value for a degree
+            degrees = None
+        
         if degrees is None:
             # input could not be parsed, try again
             print "You have used the wrong format! Please try again."
     
     # sort list of degrees so that later on high degrees are processed first
     degrees.sort(reverse=True)
+    
     return degrees
 
 def get_alpha_cut_input(degrees):
