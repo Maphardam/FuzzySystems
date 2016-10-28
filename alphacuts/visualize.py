@@ -25,3 +25,7 @@ def visualize(acuts, type='simple'):
         raise NotImplementedError()
 
     plt.show()
+
+def visualize_x(acuts, x):
+    # TODO: implement
+    pass
