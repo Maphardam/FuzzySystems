@@ -3,6 +3,7 @@ Created on Oct 28, 2016
 
 @author: cornelius
 '''
+import visualize
 
 def read_degree_values(degree_string):
     # TODO: handle bad input
@@ -39,5 +40,9 @@ if __name__ == '__main__':
         
         # save cutes in data structure
         alpha_cuts[degree] = degree_cuts
+
+    # show alpha cuts
+    visualize.visualize(alpha_cuts)
+    
     
     print "Done!"
