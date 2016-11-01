@@ -22,14 +22,15 @@ def read_cut_values(cut_string):
         # read lower and upper boundary from each cut
         cut_tuples = []
         for bounds in cut_list:
-            a = bounds[0]
             if len(bounds) == 2:
+                a = bounds[0]
                 b = bounds[1]
             elif len(bounds) == 1:
                 # exactly one value defined -> use as upper and lower boundary
+                a = bounds[0]
                 b = a
             else:
-                # too many values defined
+                # too many or no values defined
                 return None
             
             cut_tuples.append((float(a.strip()), float(b.strip())))
@@ -58,7 +59,7 @@ def get_degree_input():
         # read values from the given input
         degrees = read_degree_values(degree_string)
         
-        if min(degrees) < 0 or max(degrees) > 1:
+        if not degrees is None and (min(degrees) < 0 or max(degrees) > 1):
             # invalid value for a degree
             degrees = None
         
