@@ -59,7 +59,8 @@ def get_degree_input():
         # read values from the given input
         degrees = read_degree_values(degree_string)
         
-        if not degrees is None and (min(degrees) < 0 or max(degrees) > 1):
+        if not degrees is None and \
+           (any(d < 0 for d in degrees) or any(d > 1 for d in degrees)):
             # invalid value for a degree
             degrees = None
         
