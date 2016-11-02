@@ -4,22 +4,22 @@ __author__ = 'tsabsch <tim@sabsch.com>'
 import bisect
 import matplotlib.pyplot as plt
 
-def horizontal_view(acuts):
+def horizontal_view(alpha_cuts):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
     # plot each alpha cut range in the dict
-    for mship, acut in acuts.iteritems():
+    for degree, alpha_cut in alpha_cuts.iteritems():
         for iv in acut:
-            ax.plot(iv, [mship,mship], marker='.', color='black')
+            ax.plot(iv, [degree,degree], marker='.', color='black')
 
     # set y axis to interval [0,1]
     ax.set_ylim([0,1.1])
-    ax.set_yticks(acuts.keys())
+    ax.set_yticks(alpha_cuts.keys())
 
     return fig
 
-def upper_envelope(acuts):
+def upper_envelope(alpha_cuts):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
@@ -27,7 +27,7 @@ def upper_envelope(acuts):
     ys = list()
     tmp_steps = list()
 
-    for degree, cuts in acuts.iteritems():
+    for degree, cut in alpha_cuts.iteritems():
         print degree, cuts
 
         # insert temporary steps
@@ -60,17 +60,17 @@ def upper_envelope(acuts):
 
     ax.step(xs,ys)
     ax.set_ylim([0,1.1])
-    ax.set_yticks(acuts.keys())
+    ax.set_yticks(alpha_cuts.keys())
     return fig
 
-def visualize(acuts, kind='horizontal_view'):
+def visualize(alpha_cuts, kind='horizontal_view'):
     if kind == 'horizontal_view':
-        fig = horizontal_view(acuts)
+        fig = horizontal_view(alpha_cuts)
     if kind == 'upper_envelope':
-        fig = upper_envelope(acuts)
+        fig = upper_envelope(alpha_cuts)
 
     plt.show()
 
-def visualize_x(acuts, x):
+def visualize_x(alpha_cuts, x):
     # TODO: implement
     pass
