@@ -27,7 +27,7 @@ def upper_envelope(alpha_cuts):
     ys = list()
     tmp_steps = list()
 
-    for degree, cut in alpha_cuts.iteritems():
+    for degree, cuts in alpha_cuts.iteritems():
 
         # insert temporary steps
         for x in tmp_steps:
@@ -54,8 +54,6 @@ def upper_envelope(alpha_cuts):
             else:
                 # new up step detected, put on hold until degree is determined
                 tmp_steps += [start]
-
-        print xs, ys
 
     ax.step(xs,ys)
     ax.set_ylim([0,1.1])

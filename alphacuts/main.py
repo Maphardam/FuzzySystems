@@ -139,7 +139,7 @@ if __name__ == '__main__':
     alpha_cuts = get_alpha_cut_input(degrees)
 
     # show alpha cuts
-    visualize.visualize(alpha_cuts)
+    visualize.visualize(alpha_cuts, kind='upper_envelope')
     
     # allow requests
     handle_requests(alpha_cuts)
