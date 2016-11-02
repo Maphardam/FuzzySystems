@@ -28,7 +28,6 @@ def upper_envelope(alpha_cuts):
     tmp_steps = list()
 
     for degree, cut in alpha_cuts.iteritems():
-        print degree, cuts
 
         # insert temporary steps
         for x in tmp_steps:
