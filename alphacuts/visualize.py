@@ -3,7 +3,7 @@ __author__ = 'tsabsch <tim@sabsch.com>'
 
 import matplotlib.pyplot as plt
 
-def plot(acuts):
+def horizontal_view(acuts):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
@@ -18,9 +18,9 @@ def plot(acuts):
 
     return fig
 
-def visualize(acuts, type='simple'):
-    if type == 'simple':
-        fig = plot(acuts)
+def visualize(acuts, type='horizontal_view'):
+    if type == 'horizontal_view':
+        fig = horizontal_view(acuts)
     if type == 'upper_envelope':
         raise NotImplementedError()
 
