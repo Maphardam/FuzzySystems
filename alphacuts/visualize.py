@@ -63,10 +63,10 @@ def upper_envelope(acuts):
     ax.set_yticks(acuts.keys())
     return fig
 
-def visualize(acuts, type='horizontal_view'):
-    if type == 'horizontal_view':
+def visualize(acuts, kind='horizontal_view'):
+    if kind == 'horizontal_view':
         fig = horizontal_view(acuts)
-    if type == 'upper_envelope':
+    if kind == 'upper_envelope':
         fig = upper_envelope(acuts)
 
     plt.show()
