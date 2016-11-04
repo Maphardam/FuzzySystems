@@ -68,13 +68,30 @@ def upper_envelope(alpha_cuts):
     return fig
 
 def visualize(alpha_cuts, kind='horizontal_view'):
+    plt.ion()
     if kind == 'horizontal_view':
         fig = horizontal_view(alpha_cuts)
     if kind == 'upper_envelope':
         fig = upper_envelope(alpha_cuts)
 
-    plt.show()
+    return fig
 
-def visualize_x(alpha_cuts, x):
-    # TODO: implement
-    pass
+def init_handler(fig):
+    ax = fig.gca()
+    line, = ax.plot([],[])
+    default_xticks = ax.xaxis.get_majorticklocs().tolist()
+    return line, default_xticks
+
+def visualize_x(fig, line, default_xticks, x, y):
+    ax = fig.gca()
+
+
+    # update vertical line
+    line.set_xdata([x,x])
+    line.set_ydata([0,y])
+    line.set_color('red')
+
+    # update xticks
+    ax.set_xticks(default_xticks + [x])
+
+    return line

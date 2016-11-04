@@ -108,11 +108,12 @@ def get_membership_value(alpha_cuts, x):
     return 0.0
 
 
-def handle_requests(alpha_cuts):
+def handle_requests(alpha_cuts, fig):
     print "Which membership degree do you want to know?"
     print "You can simply enter the point of interest or type 'end' to finish."
     
     run = True
+    line, default_xticks = visualize.init_handler(fig)
     while run:
         inp = raw_input(">>> ")
         
@@ -128,7 +129,7 @@ def handle_requests(alpha_cuts):
             else:
                 mem = get_membership_value(alpha_cuts, x)
                 print "Membership value: {}".format(mem)
-                visualize.visualize_x(alpha_cuts, x)
+                line = visualize.visualize_x(fig, line, default_xticks, x, mem)
 
 
 if __name__ == '__main__':
@@ -139,9 +140,9 @@ if __name__ == '__main__':
     alpha_cuts = get_alpha_cut_input(degrees)
 
     # show alpha cuts
-    visualize.visualize(alpha_cuts, kind='upper_envelope')
+    fig = visualize.visualize(alpha_cuts, kind='upper_envelope')
     
     # allow requests
-    handle_requests(alpha_cuts)
+    handle_requests(alpha_cuts, fig)
     
     print "We hope you enjoyed using the Alpha-Cut Master!"
