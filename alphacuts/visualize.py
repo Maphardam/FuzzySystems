@@ -55,6 +55,13 @@ def upper_envelope(alpha_cuts):
                 # new up step detected, put on hold until degree is determined
                 tmp_steps += [start]
 
+    # Hide the right and top spines
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    # Only show ticks on the left and bottom spines
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position('bottom')
+
     ax.step(xs,ys)
     ax.set_ylim([0,1.1])
     ax.set_yticks(alpha_cuts.keys())
