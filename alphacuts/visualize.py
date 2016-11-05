@@ -63,6 +63,7 @@ def upper_envelope(ax, alpha_cuts):
 
 def visualize(alpha_cuts, kind='both'):
     plt.ion()
+    plt.xkcd()
     fig = plt.figure()
 
     if kind == 'horizontal_view':
