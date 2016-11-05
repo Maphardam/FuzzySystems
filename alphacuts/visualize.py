@@ -14,6 +14,8 @@ def horizontal_view(ax, alpha_cuts):
     ax.set_ylim([0,1.1])
     ax.set_yticks(alpha_cuts.keys())
 
+    ax.set_title("Horizontal View")
+
     return ax
 
 def upper_envelope(ax, alpha_cuts):
@@ -54,6 +56,8 @@ def upper_envelope(ax, alpha_cuts):
     ax.step(xs,ys)
     ax.set_ylim([0,1.1])
     ax.set_yticks(alpha_cuts.keys())
+
+    ax.set_title("Upper Envelope")
 
     return ax
 
