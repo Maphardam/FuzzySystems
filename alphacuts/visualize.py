@@ -10,7 +10,7 @@ def horizontal_view(alpha_cuts):
 
     # plot each alpha cut range in the dict
     for degree, alpha_cut in alpha_cuts.iteritems():
-        for iv in acut:
+        for iv in alpha_cut:
             ax.plot(iv, [degree,degree], marker='.', color='black')
 
     # set y axis to interval [0,1]
