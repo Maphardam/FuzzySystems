@@ -4,25 +4,19 @@ __author__ = 'tsabsch <tim@sabsch.com>'
 import bisect
 import matplotlib.pyplot as plt
 
-def horizontal_view(alpha_cuts):
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-
+def horizontal_view(ax, alpha_cuts):
     # plot each alpha cut range in the dict
     for degree, alpha_cut in alpha_cuts.iteritems():
         for iv in alpha_cut:
             ax.plot(iv, [degree,degree], marker='.', color='black')
 
-    # set y axis to interval [0,1]
+    # set y axis to interval [0,1.1]
     ax.set_ylim([0,1.1])
     ax.set_yticks(alpha_cuts.keys())
 
-    return fig
+    return ax
 
-def upper_envelope(alpha_cuts):
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-
+def upper_envelope(ax, alpha_cuts):
     xs = list()
     ys = list()
     tmp_starts = list()
@@ -56,25 +50,28 @@ def upper_envelope(alpha_cuts):
 
         tmp_starts.remove(s)
 
-    # Hide the right and top spines
-    ax.spines['right'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    # Only show ticks on the left and bottom spines
-    ax.yaxis.set_ticks_position('left')
-    ax.xaxis.set_ticks_position('bottom')
-
+    # set y axis to interval [0,1.1]
     ax.step(xs,ys)
     ax.set_ylim([0,1.1])
     ax.set_yticks(alpha_cuts.keys())
-    return fig
 
-def visualize(alpha_cuts, kind='horizontal_view'):
+    return ax
+
+def visualize(alpha_cuts, kind='both'):
     plt.ion()
+    fig = plt.figure()
 
     if kind == 'horizontal_view':
-        fig = horizontal_view(alpha_cuts)
+        ax = fig.add_subplot(111)
+        horizontal_view(ax, alpha_cuts)
     if kind == 'upper_envelope':
-        fig = upper_envelope(alpha_cuts)
+        ax = fig.add_subplot(111)
+        upper_envelope(ax, alpha_cuts)
+    if kind == 'both':
+        ax1 = fig.add_subplot(121)
+        ax2 = fig.add_subplot(122)
+        horizontal_view(ax1, alpha_cuts)
+        upper_envelope(ax2, alpha_cuts)
 
     return fig
 
