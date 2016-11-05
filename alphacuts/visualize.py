@@ -25,17 +25,9 @@ def upper_envelope(alpha_cuts):
 
     xs = list()
     ys = list()
-    tmp_steps = list()
+    tmp_starts = list()
 
     for degree, cuts in alpha_cuts.iteritems():
-
-        # insert temporary steps
-        for x in tmp_steps:
-            i = bisect.bisect_left(xs, x)
-            xs.insert(i, x)
-            ys.insert(i, degree)
-        tmp_steps = list()
-
         for (start, end) in cuts:
             if end not in xs:
                 # insert new (down) step
@@ -43,17 +35,26 @@ def upper_envelope(alpha_cuts):
                 xs.insert(i, end)
                 ys.insert(i, degree)
 
-            if start in xs:
-                if start == end:
-                    # special case: peak
-                    tmp_steps += [start]
-                else:
-                    # update step
-                    i = xs.index(start)
-                    ys[i] = degree
-            else:
-                # new up step detected, put on hold until degree is determined
-                tmp_steps += [start]
+            for s in [s for s in tmp_starts if start <= s <= end]:
+                # insert new (up) step
+                i = bisect.bisect_left(xs, s)
+                xs.insert(i, s)
+                ys.insert(i, degree)
+
+                tmp_starts.remove(s)
+
+            # plot.step needs the y-value until the start value. as we're going
+            # down, this is not known yet. start values are therefore added to
+            # a temporary list
+            tmp_starts.append(start)
+
+    for s in tmp_starts:
+        # flush remaining start points
+        i = bisect.bisect_left(xs, s)
+        xs.insert(i, s)
+        ys.insert(i, 0)
+
+        tmp_starts.remove(s)
 
     # Hide the right and top spines
     ax.spines['right'].set_visible(False)
@@ -69,6 +70,7 @@ def upper_envelope(alpha_cuts):
 
 def visualize(alpha_cuts, kind='horizontal_view'):
     plt.ion()
+
     if kind == 'horizontal_view':
         fig = horizontal_view(alpha_cuts)
     if kind == 'upper_envelope':
@@ -84,7 +86,6 @@ def init_handler(fig):
 
 def visualize_x(fig, line, default_xticks, x, y):
     ax = fig.gca()
-
 
     # update vertical line
     line.set_xdata([x,x])
