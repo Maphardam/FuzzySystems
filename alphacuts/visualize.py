@@ -78,6 +78,8 @@ def visualize(alpha_cuts, kind='both'):
         horizontal_view(ax1, alpha_cuts)
         upper_envelope(ax2, alpha_cuts)
 
+    fig.canvas.set_window_title("Alpha-Cut Master")
+
     return fig
 
 def init_handler(fig):
