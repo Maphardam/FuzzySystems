@@ -4,26 +4,26 @@ __author__ = 'tsabsch <tim@sabsch.com>'
 import bisect
 import matplotlib.pyplot as plt
 
-def horizontal_view(ax, alpha_cuts):
+def horizontal_view(ax, fuzzy_set):
     # plot each alpha cut range in the dict
-    for degree, alpha_cut in alpha_cuts.iteritems():
+    for degree, alpha_cut in fuzzy_set.iter_alphacuts():
         for iv in alpha_cut:
             ax.plot(iv, [degree,degree], marker='.', color='black')
 
     # set y axis to interval [0,1.1]
     ax.set_ylim([0,1.1])
-    ax.set_yticks(alpha_cuts.keys())
+    ax.set_yticks(fuzzy_set.degrees())
 
     ax.set_title("Horizontal View")
 
     return ax
 
-def upper_envelope(ax, alpha_cuts):
+def upper_envelope(ax, fuzzy_set):
     xs = list()
     ys = list()
     tmp_starts = list()
 
-    for degree, cuts in alpha_cuts.iteritems():
+    for degree, cuts in fuzzy_set.iter_alphacuts():
         for (start, end) in cuts:
             if end not in xs:
                 # insert new (down) step
@@ -55,28 +55,27 @@ def upper_envelope(ax, alpha_cuts):
     # set y axis to interval [0,1.1]
     ax.step(xs,ys)
     ax.set_ylim([0,1.1])
-    ax.set_yticks(alpha_cuts.keys())
-
+    ax.set_yticks(fuzzy_set.degrees())
     ax.set_title("Upper Envelope")
 
     return ax
 
-def visualize(alpha_cuts, kind='both'):
+def visualize(fuzzy_set, kind='both'):
     plt.ion()
     plt.xkcd()
     fig = plt.figure()
 
     if kind == 'horizontal_view':
         ax = fig.add_subplot(111)
-        horizontal_view(ax, alpha_cuts)
+        horizontal_view(ax, fuzzy_set)
     if kind == 'upper_envelope':
         ax = fig.add_subplot(111)
-        upper_envelope(ax, alpha_cuts)
+        upper_envelope(ax, fuzzy_set)
     if kind == 'both':
         ax1 = fig.add_subplot(121)
         ax2 = fig.add_subplot(122)
-        horizontal_view(ax1, alpha_cuts)
-        upper_envelope(ax2, alpha_cuts)
+        horizontal_view(ax1, fuzzy_set)
+        upper_envelope(ax2, fuzzy_set)
 
     fig.canvas.set_window_title("Alpha-Cut Master")
 
