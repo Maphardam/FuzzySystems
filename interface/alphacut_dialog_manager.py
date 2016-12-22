@@ -4,7 +4,7 @@ Created on Dec 22, 2016
 @author: crekowski
 '''
 
-from interface import input_parser as ip
+import input_parser as ip
 
 
 def get_degree_input():
@@ -17,7 +17,7 @@ def get_degree_input():
         degree_string = raw_input(">>> ")
         
         # Read values from the given input
-        degrees = ip.read_degree_values(degree_string)
+        degrees = ip.read_number_list(degree_string)
         
         if not degrees is None and \
            (any(d < 0 for d in degrees) or any(d > 1 for d in degrees)):

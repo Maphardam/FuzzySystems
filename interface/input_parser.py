@@ -4,10 +4,10 @@ Created on Dec 22, 2016
 @author: crekowski
 '''
 
-def read_degree_values(degree_string):
+def read_number_list(input_string):
     try:
         # Split list by ','
-        return [float(s.strip()) for s in degree_string.split(',')]
+        return [float(s.strip()) for s in input_string.split(',')]
     except ValueError:
         # Something was not a float in there
         return None
