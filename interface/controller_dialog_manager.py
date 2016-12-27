@@ -22,3 +22,14 @@ def get_finite_crisp_set():
             print "You have used the wrong format! Please try again."
     
     return elements
+
+
+def add_sets():
+    print "Do you want to add more fuzzy sets? (yes/no)"
+    
+    response = raw_input(">>>")
+    
+    if response.lower().strip() == "yes":
+        return True
+    else:
+        return False
