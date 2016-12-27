@@ -13,6 +13,24 @@ def read_number_list(input_string):
         return None
 
 
+def read_list(input_string):
+    return [s.strip() for s in input_string.split(',') if s.strip()]
+
+
+def read_membership_value(mv_string):
+    try:
+        v = float(mv_string)
+    except ValueError:
+        # That was not a float
+        return None
+    
+    if v >= 0.0 and v <= 1.0:
+        return v
+    else:
+        # This is not a valid membership degree
+        return None
+
+
 def read_cut_values(cut_string):
     try:
         # Split given string into list of separate cuts

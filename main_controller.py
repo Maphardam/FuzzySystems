@@ -3,25 +3,19 @@ Created on Dec 22, 2016
 
 @author: crekowski
 '''
-from model.fuzzy_set import FuzzySet
+from model.fuzzy_set import FuzzySetOnCrisp
 from interface import controller_dialog_manager as controller_dm
-from interface import alphacut_dialog_manager as alphacut_dm
 from model import relational_equations as req
 
 
 def build_fuzzy_set(crisp_set):
-    # TODO: Is the underlying crisp set even needed for fuzzy set definition?
+    # Create fuzzy set defined on the given crisp set
+    fuzzy_set = FuzzySetOnCrisp(crisp_set)
     
-    # Create fuzzy set
-    fuzzy_set = FuzzySet()
-    
-    # Get list of degrees from user input
-    degrees = alphacut_dm.get_degree_input()
-    
-    # Get the cuts for each degree from user input
-    for degree in degrees:
-        cuts = alphacut_dm.get_alpha_cut_input(degree)
-        fuzzy_set.add_cuts_for_degree(degree, cuts)
+    # Get the membership value for each element of the crisp set
+    for x in crisp_set:
+        membership_value = controller_dm.get_membership_value(x)
+        fuzzy_set.add_value_for_x(x, membership_value)
     
     return fuzzy_set
 
@@ -30,12 +24,14 @@ def get_fuzzy_sets(X, Y):
     fuzzy_sets_X = []
     fuzzy_sets_Y = []
     
+    print "Creating fuzzy implication rules on X and Y."
+    
     add_sets = True
     while add_sets:
-        print "Please provide a fuzzy set on X ({}).".format(X)
+        print "Please provide membership values for the elements of X."
         fsX = build_fuzzy_set(X)
         
-        print "Please provide a fuzzy set on Y ({}).".format(Y)
+        print "Please provide membership values for the elements of Y."
         fsY = build_fuzzy_set(Y)
         
         fuzzy_sets_X.append(fsX)
@@ -50,7 +46,9 @@ if __name__ == '__main__':
     print "### Welcome to the Fuzzy Controller Master! ###"
     
     # Let the user enter finite crisp sets X and Y
+    print "Please provide the finite crisp set X."
     X = controller_dm.get_finite_crisp_set()
+    print "Please provide the finite crisp set Y."
     Y = controller_dm.get_finite_crisp_set()
     
     # Let the user enter r fuzzy sets on X and Y
@@ -60,5 +58,5 @@ if __name__ == '__main__':
     # fuzzy sets on X and Y
     solution = req.greatest_solution_for_all(X, Y, fuzzy_sets_X, fuzzy_sets_Y)
     
-    # TODO: Show the solution
-    
+    print("Solution:")
+    print(solution)
