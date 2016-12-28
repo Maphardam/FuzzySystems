@@ -57,6 +57,10 @@ if __name__ == '__main__':
     # Calculate the greatest solution for the relational equations given by the
     # fuzzy sets on X and Y
     solution = req.greatest_solution_for_all(X, Y, fuzzy_sets_X, fuzzy_sets_Y)
+
+    len_X = len(X)
+    len_Y = len(Y)
     
-    print("Solution:")
-    print(solution)
+    print "Solution:"
+    for i in range(0, len_X):
+        print solution[i*len_Y:(i+1)*len_Y]
