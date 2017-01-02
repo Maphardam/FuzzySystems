@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 '''
 Created on Dec 28, 2016
 
@@ -6,11 +5,11 @@ Created on Dec 28, 2016
 '''
 
 def goedel_implication(x, y):
-    u"""
-    Gödel implication of two values x and y
-    The Gödel implication is defined as 1, if x is smaller than y, and y 
+    '''
+    Goedel implication of two values x and y
+    The Goedel implication is defined as 1, if x is smaller than y, and y 
     otherwise.
-    """ 
+    ''' 
     if x <= y:
         return 1
     return y
