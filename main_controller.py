@@ -79,5 +79,5 @@ if __name__ == '__main__':
     len_Y = len(Y)
 
     print "Solution:"
-    for i in range(1, len_X):
+    for i in range(0, len_X):
         print solution[i]
