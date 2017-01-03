@@ -82,7 +82,9 @@ class FuzzySetOnCrisp:
         Args:
             crisp_set: Crisp set
         """
-        self.memberships = {x: 0.0 for x in crisp_set}
+        self.memberships = OrderedDict()
+        for el in crisp_set:
+            self.memberships[el] = 0.0
 
     @property
     def crisp_set(self):
@@ -114,7 +116,7 @@ class FuzzySetOnCrisp:
         """Get membership value for a value.
 
         Args:
-            x: Float
+            x: Element of the underlying crisp set
 
         Returns:
             Membership value of x

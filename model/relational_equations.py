@@ -23,26 +23,27 @@ def goedel_implication(x, y):
     return y
 
 
-def greatest_solution(X, Y, fs_X, fs_Y):
+def greatest_solution(fs_X, fs_Y):
     """Find the greatest solution that solves fs_X * solution = fs_Y.
 
     The greatest solution consists of the goedel implication in each entry.
 
     Args:
-        X: Crisp set
-        Y: Crisp set
         fs_X: Fuzzy set on X
         fs_Y: Fuzzy set on Y
 
     Returns:
         Greatest solution of a fuzzy relational equation between fs_X and fs_Y.
     """
+    X = fs_X.crisp_set
+    Y = fs_Y.crisp_set
+
     len_X = len(X)
     len_Y = len(Y)
 
-    solution = [[0] * len_Y] * len_X
-    for i in range(0, len_X):
-        for j in range(0, len_Y):
+    solution = [[0 for i in range(len_Y)] for i in range(len_X)]
+    for i in range(len_X):
+        for j in range(len_Y):
             solution[i][j] = goedel_implication(
                 fs_X.get_membership_value(X[i]),
                 fs_Y.get_membership_value(Y[j]))
@@ -50,17 +51,15 @@ def greatest_solution(X, Y, fs_X, fs_Y):
     return solution
 
 
-def greatest_solution_for_all(X, Y, fss_X, fss_Y):
+def greatest_solution_for_all(fss_X, fss_Y):
     """Find the greatest solution that solves all relational equations.
 
     Finds the greatest solution that solves fss_X[i] * solution = fss_Y[i] for
     i = [1..r]. It is defined as the minimum of the single solutions.
 
     Args:
-        X: Crisp set
-        Y: Crisp set
-        fss_X: Fuzzy sets on X
-        fss_Y: Fuzzy sets on Y
+        fss_X: FuzzySetOnCrisp
+        fss_Y: FuzzySetOnCrisp
 
     Returns:
         Greatest solution for all relational equations.
@@ -69,17 +68,17 @@ def greatest_solution_for_all(X, Y, fss_X, fss_Y):
     eq_solutions = [0] * num_eq
 
     # compute single goedel solutions
-    for i in range(0, num_eq):
-        eq_solutions[i] = greatest_solution(X, Y, fss_X[i], fss_Y[i])
+    for i in range(num_eq):
+        eq_solutions[i] = greatest_solution(fss_X[i], fss_Y[i])
 
     # compute global solution
-    len_X = len(X)
-    len_Y = len(Y)
+    len_X = len(fss_X[0].crisp_set)
+    len_Y = len(fss_Y[0].crisp_set)
 
-    solution = [[0] * len_Y] * len_X
-    for i in range(0, len_X):
-        for j in range(0, len_Y):
+    solution = [[0 for i in range(len_Y)] for i in range(len_X)]
+    for i in range(len_X):
+        for j in range(len_Y):
             solution[i][j] = min(
-                [eq_solutions[k][i][j] for k in range(0, num_eq)])
+                [eq_solutions[k][i][j] for k in range(num_eq)])
 
     return solution
