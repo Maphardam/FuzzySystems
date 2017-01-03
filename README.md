@@ -11,7 +11,18 @@ For best user experience, we recommend having the font `Humor Sans` installed.
 To execute the code, use the following command:
 
     python alphacuts/main.py
-    
+
 or
 
     python2.7 alphacuts/main.py
+
+_NOTE: functionality of assignment 1 is only guaranteed for commit d076418._
+
+### Relational equations (Programming assignment 2)
+To execute the code, use the following command:
+
+    python main_controller.py
+
+or
+
+    python2.7 main_controller.py
